@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Sat.Recruitment.Domain.Entity;
 using Sat.Recruitment.Domain.Extensions;
 using Sat.Recruitment.Service.Repository;
@@ -7,13 +8,13 @@ namespace Sat.Recruitment.Persistence
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public override void FillSource()
+        public override async Task FillSource()
         {
             var reader = ReadUsersFromFile();
 
             while (reader.Peek() >= 0)
             {
-                var line = reader.ReadLineAsync().Result;
+                var line = await reader.ReadLineAsync();
                 var user = new User
                 {
                     Name = line.Split(',')[0].ToString(),

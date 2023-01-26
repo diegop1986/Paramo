@@ -11,7 +11,7 @@ namespace Sat.Recruitment.Persistence
     {
         protected readonly List<TEntity> Source = new List<TEntity>();
 
-        public abstract void FillSource();
+        public abstract Task FillSource();
 
         public async Task Del(TEntity entity) => await Task.Factory.StartNew((Action)(() => Source.Remove(entity)));
 
